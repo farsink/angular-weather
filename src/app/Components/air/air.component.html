@@ -1,0 +1,32 @@
+<div class="bg-[#1A2332] w-full h-full rounded-lg shadow-lg p-4 flex flex-col">
+  <div class="flex justify-between items-center mb-4">
+    <span class="text-[#A0AEC0] uppercase text-lg">Air Conditions</span>
+    <button class="bg-[#4299E1] text-white rounded-lg shadow-md text-sm px-2 py-1 cursor-pointer">See more</button>
+  </div>
+  <div class="flex flex-row justify-between">
+    <div class="flex flex-col space-y-4">
+      <div class="flex flex-col items-center">
+        <span class="text-2xl">🌡️</span>
+        <span class="text-[#A0AEC0] text-sm">Real Feel</span>
+        <span class="text-white text-xl font-bold">{{Airdata.humidity}}</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-2xl">💧</span>
+        <span class="text-[#A0AEC0] text-sm">Chance of rain</span>
+        <span class="text-white text-xl font-bold">{{Airdata.Rain*100}}</span>
+      </div>
+    </div>
+    <div class="flex flex-col space-y-4">
+      <div class="flex flex-col items-center">
+        <span class="text-2xl">🍃</span>
+        <span class="text-[#A0AEC0] text-sm">Wind</span>
+        <span class="text-white text-xl font-bold">{{Airdata.wind}} km/h</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <span class="text-2xl">☀️</span>
+        <span class="text-[#A0AEC0] text-sm">UV Index</span>
+        <span class="text-white text-xl font-bold">{{Airdata.uvindex}}</span>
+      </div>
+    </div>
+  </div>
+</div>

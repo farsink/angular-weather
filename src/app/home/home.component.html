@@ -1,0 +1,52 @@
+<div class="flex h-full w-full items-center justify-center">
+  <div
+    class="flex flex-col sm:grid h-full w-full gap-4 p-2 sm:grid-cols-8 sm:grid-rows-10 rounded-lg shadow-md"
+  >
+    <!-- Navbar -->
+    <div
+      class="sm:col-span-1 sm:row-span-10 bg-[#14213d] rounded-xl hidden sm:block"
+    >
+      <app-navbar />
+    </div>
+
+    <!-- Search -->
+    <div class="sm:col-span-5 sm:row-span-1 rounded-lg shadow-md">
+      <app-search />
+    </div>
+
+    <!-- Empty div -->
+    <div
+      class="hidden sm:flex sm:col-span-1 sm:row-span-1 rounded-lg items-center justify-center"
+    ></div>
+
+    <!-- Empty div with > -->
+    <div
+      class="hidden sm:flex sm:col-span-1 sm:row-span-1 rounded-lg shadow-md items-center justify-center"
+    >
+      >
+    </div>
+
+    <!-- Hero section -->
+    <div class="sm:col-span-5 sm:row-span-4 rounded-lg shadow-md">
+      <app-hero />
+    </div>
+
+    <!-- Right forecast -->
+    <div class="sm:col-span-2 sm:row-span-9 rounded-lg shadow-md">
+      <app-rightforecast [weekdata]="weekData" />
+    </div>
+
+    <!-- Today's forecast -->
+    <div
+      class="sm:col-span-3  sm:row-span-5 bg-[#1b263b] rounded-lg shadow-md flex flex-col justify-center gap-2 items-center"
+    >
+      <h2 class="text-white text-xl font-semibold">TODAY'S FORECAST</h2>
+      <app-forecast [todaydata]="todaysForcast" />
+    </div>
+
+    <!-- Air quality -->
+    <div class="sm:col-span-2 sm:row-span-5 rounded-xl shadow-md">
+      <app-air [Airdata]="AirCondition" />
+    </div>
+  </div>
+</div>

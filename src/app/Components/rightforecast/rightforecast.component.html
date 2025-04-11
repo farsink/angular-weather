@@ -1,0 +1,16 @@
+<div
+  class="bg-gradient-to-b from-gray-900 to-gray-800 p-8 rounded-lg w-full h-full"
+>
+  <h2 class="text-white text-xl font-bold uppercase">7-Day Forecast</h2>
+  <div class="space-y-4 mt-4">
+    <!-- Today -->
+   @for(items of (weekdata ?? []).slice(0,6) ; track $index )
+   { <div class="flex items-center">
+      <p class="w-20 text-white font-medium text-sm">{{items.day}}</p>
+      <img src={{items.image}} alt="Sunny" class="w-6 h-6 mx-2" />
+      <p class="flex-grow text-white font-sm">{{items.summury}}</p>
+      <p class="w-10 text-white ">{{items.high_temperature}}/{{items.low_temperature}}</p>
+    </div>}
+    
+  </div>
+</div>
