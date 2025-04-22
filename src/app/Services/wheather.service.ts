@@ -9,7 +9,8 @@ import { weekdata } from '../Model/WeekData';
 import { count, Observable } from 'rxjs';
 import { Environment } from '../Environment/Environment';
 import { LocationResponse } from '../Model/locationResponse';
-import { LocationfromText } from '../Model/Locationfromtext';
+import { LocationfromText, Result } from '../Model/Locationfromtext';
+import { debounceTime, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,8 @@ export class WheatherService {
   WeekData: weekdata[] = [];
   // Get current date in YYYY-MM-DD format
   currentDate: string = Date.now().toString();
-  SearchResult: LocationfromText;
+  private searchSubject = new Subject<string>();
+  searchResults: Result[] = []; // Store multiple search results
 
   weatherCodeMap = new Map([
     [0, 'Clear sky'],
@@ -65,7 +67,26 @@ export class WheatherService {
 
   constructor(private HttpClient: HttpClient) {
     this.getData();
+
+    this.searchSubject.pipe(debounceTime(1000)).subscribe((text) => {
+      this.getLocationfromText(text).subscribe({
+        next: (data) => {
+          this.searchResults = data.results;
+          console.log(this.searchResults);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      });
+    });
   }
+  selectLocation(latitude: number, longitude: number): void {
+    this.getData(latitude, longitude); // Fetch weather details for selected location
+  }
+  getsummaryPhrase(code: number): string {
+    return this.weatherCodeMap.get(code) || 'Unknown weather code';
+  }
+
   getData(longitude?: number, latitude?: number): void {
     this.getWeatherData(longitude, latitude).subscribe({
       next: (data) => {
@@ -92,11 +113,6 @@ export class WheatherService {
       },
     });
   }
-
-  getsummaryPhrase(code: number): string {
-    return this.weatherCodeMap.get(code) || 'Unknown weather code';
-  }
-
   getLocationData(
     latitude: number,
     longitude: number
@@ -121,27 +137,13 @@ export class WheatherService {
           language: 'en',
           format: 'json',
           name: text,
-          count: '1',
+          count: '10',
         },
       }
     );
   }
   searchResultFun(text: string): void {
-    this.getLocationfromText(text).subscribe({
-      next: (data) => {
-        this.SearchResult = data;
-        console.log(this.SearchResult);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        this.getData(
-          this.SearchResult.results[0]?.latitude,
-          this.SearchResult.results[0]?.longitude
-        );
-      },
-    });
+    this.searchSubject.next(text);
   }
 
   getWeatherData(

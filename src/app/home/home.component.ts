@@ -10,6 +10,7 @@ import { TemperatureDetails } from '../Model/TemparatureDetails';
 import { TodaysForcast } from '../Model/TodaysForcast';
 import { weekdata } from '../Model/WeekData';
 import { Aircondition } from '../Model/AirConditions';
+import { WeatherMainComponent } from "../Components/weather-main/weather-main.component";
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ import { Aircondition } from '../Model/AirConditions';
     ForecastComponent,
     RightforecastComponent,
     AirComponent,
-  ],
+    WeatherMainComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

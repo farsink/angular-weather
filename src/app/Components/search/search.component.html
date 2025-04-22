@@ -26,7 +26,7 @@
         </g>
       </svg>
     </div>
-    <button class="close-btn" type="reset">
+    <button class="close-btn" type="reset" (click)="clearInput()" >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5"
@@ -42,3 +42,14 @@
     </button>
   </label>
 </form>
+
+<!-- Search Result  -->
+<ul *ngIf="weatherservice.searchResults?.length > 0 && searchCity" class="search-results bg-gray-600 rounded-lg shadow-md p-2 mt-1 ml-5 z-100 flex flex-col justify-center absolute sm:w-175 w-75 max-h-80 overflow-y-auto" >
+  <li 
+    *ngFor="let result of weatherservice.searchResults"
+    (click)="selectLocation(result?.latitude, result?.longitude) ; clearInput()"
+    class="search-result-item flex items-center justify-between p-2 hover:bg-gray-700 cursor-pointer rounded-md"
+  >
+    {{ result?.name || [] }}, {{result?.admin1 || []}},{{ result?.country || [] }}
+  </li>
+</ul>>
